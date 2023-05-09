@@ -10,6 +10,6 @@ import java.util.List;
 public interface QuoteResource extends IResource<Quote> {
 
     //ссылка на 10 лучших цитат
-    @GetMapping("/requestTopQuotes")
+    @GetMapping("/top")
     public ResponseEntity<List<Quote>> RequestTopQuotes();
 }
