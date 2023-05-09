@@ -1,45 +1,74 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Card, Col, Row} from 'react-bootstrap';
-import {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faHeart} from "@fortawesome/free-solid-svg-icons";
+import axios from "axios";
 
-function Quotes() {
-    const styles = {
-        cardContainer: {
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center'
-        },
-    };
-    const [isLiked, setIsLiked] = useState(false);
+export default class Quotes extends Component {
 
-    const handleClick = () => {
-        setIsLiked(!isLiked);
-    };
-    return (
-        <div style={styles.cardContainer}>
-            <Card style={{ width: '61rem'}}>
-                <Card.Header className="mx-3" style={{fontSize: '16px'}}>
-                    <cite title="time"> 18:30 05.03.2022</cite>
-                </Card.Header>
-                <Card.Body  style={{fontSize: '18px'}}>
-                    <blockquote className="blockquote mx-4 mt-1">
-                            В жизни не стоит ждать наступления идеального момента, нужно создавать свои возможности.
-                    </blockquote>
-                </Card.Body>
-                <Card.Footer style={{fontSize: '18px'}}>
-                    <Row>
-                        <Col  className="mx-4"><div onClick={handleClick}>
-                            <FontAwesomeIcon style={{fontSize: '21px'}} icon={faHeart} color={isLiked ? "red" : "gray"}/>
-                            {' '}<cite title="like">155</cite>
-                        </div></Col>
-                        <Col className="text-end mx-5"><cite title="Автор">Борщёв Денис</cite></Col>
-                    </Row>
-                </Card.Footer>
-            </Card>
-        </div>
-    );
-};
+    constructor(props) {
+        super(props);
+        this.state = {
+            quotes: []
+        };
+    }
 
-export default Quotes;
+    findAllQuotes() {
+        axios.get("http://localhost:8080/quotes")
+            .then(response => response.data)
+            .then((date) => {
+                this.setState({quotes: date})
+            });
+    }
+
+    componentDidMount() {
+        this.findAllQuotes();
+    }
+
+
+    render() {
+        const styles = {
+            cardContainer: {
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                background: '#0F0F0F'
+            },
+        };
+
+        return (
+            <body style={styles.cardContainer}>
+                {this.state.quotes.length === 0 ?
+                    <div>
+                        Лента цитат пока пуста
+                    </div>
+                    :
+                    <div style={{width: '60rem'}}>
+                        {this.state.quotes.map((quote) => (
+                            <Card className="mb-3" key={quote.id} >
+                                <Card.Header style={{fontSize: '16px'}}>
+                                    <div className="mx-4"><cite title="time">{quote.date}</cite></div>
+                                </Card.Header>
+                                <Card.Body style={{fontSize: '18px'}}>
+                                    <blockquote className="blockquote mx-4 mt-1">
+                                        {quote.text}
+                                    </blockquote>
+                                </Card.Body>
+                                <Card.Footer style={{fontSize: '18px'}}>
+                                    <Row>
+                                        <Col className="mx-4">
+                                            <FontAwesomeIcon style={{fontSize: '21px'}} icon={faHeart}/>
+                                            {' '}<cite title="like">{quote.scoreLikes}</cite>
+                                        </Col>
+                                        <Col className="text-end mx-5"><cite
+                                            title="Автор">{quote.author}</cite></Col>
+                                    </Row>
+                                </Card.Footer>
+                            </Card>
+                        ))}
+                    </div>
+                }
+            </body>
+        )
+    }
+}
