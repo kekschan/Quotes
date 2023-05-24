@@ -3,7 +3,7 @@ package com.kekschan.server.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
+import javax.persistence.*;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
