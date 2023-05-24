@@ -5,6 +5,7 @@ import {Col, Container, Row} from "react-bootstrap";
 import NavigationBar from "./components/NavigationBar";
 import Quotes from "./components/Quotes";
 import QuotesTop from "./components/QuotesTop";
+import Test from "./components/Test";
 
 function App() {
     const marginTop = {
@@ -21,6 +22,8 @@ function App() {
                             <Route path={"/about"} exact component={About}/>
                             <Route path={"/quotes"} exact component={Quotes}/>
                             <Route path={"/quotes/top"} exact component={QuotesTop}/>
+                            <Route path={"/test"} exact component={Test}/>
+
                         </Col>
                     </Switch>
                 </Row>
