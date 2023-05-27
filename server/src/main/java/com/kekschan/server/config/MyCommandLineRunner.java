@@ -32,7 +32,7 @@ public class MyCommandLineRunner implements CommandLineRunner {
                 List<QuoteData> quotes = new ObjectMapper().readValue(inputStream, typeReference);
                 if (quotes != null && !quotes.isEmpty()) {
                     List<Quote> quoteList = new ArrayList<>();
-                    quotes.forEach(quote -> quoteList.add(new Quote(quote.getText(), quote.getAuthor(),
+                    quotes.forEach(quote -> quoteList.add(new Quote(quote.getText(), quote.getAuthorId(),
                             quote.getDate(), quote.getScoreLikes())));
                     List<Quote> savedQuotesList = service.saveAll(quoteList);
                     System.out.println(savedQuotesList.size());

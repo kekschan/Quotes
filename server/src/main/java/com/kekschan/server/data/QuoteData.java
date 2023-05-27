@@ -8,7 +8,7 @@ import java.util.Date;
 @Setter
 public class QuoteData{
     private  String text;
-    private  String author;
+    private  String authorId;
     private  Date date;
     private  Long scoreLikes;
 }

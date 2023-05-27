@@ -11,5 +11,5 @@ public interface QuoteResource extends IResource<Quote> {
 
     //ссылка на 10 лучших цитат
     @GetMapping("/top")
-    public ResponseEntity<List<Quote>> RequestTopQuotes();
+    ResponseEntity<List<Quote>> RequestTopQuotes();
 }

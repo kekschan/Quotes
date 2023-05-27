@@ -61,7 +61,7 @@ export default class QuotesTop extends Component {
                                         {' '}<cite title="like">{quote.scoreLikes}</cite>
                                     </Col>
                                     <Col className="text-end mx-5"><cite
-                                        title="Автор">{quote.author}</cite></Col>
+                                        title="Автор">{quote.authorId}</cite></Col>
                                 </Row>
                             </Card.Footer>
                         </Card>
